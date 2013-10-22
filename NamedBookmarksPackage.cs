@@ -101,6 +101,8 @@ namespace Wil.NamedBookmarks
             // replace closing curly braces (stored as "%")
             str = str.Replace("%", "{}}");
 
+            str = str.Trim();
+
             return str;
         }
 
@@ -152,30 +154,58 @@ namespace Wil.NamedBookmarks
                 // Set bookmark
                 selection.SetBookmark();
                 //_applicationObject.ExecuteCommand("Format.InsertBookmark");
-                
+
 
                 // Name bookmark
                 if (caption != "")
                 {
+                    //_applicationObject.ExecuteCommand("Edit.ClearOutputWindow");
+                    //Debug.WriteLine(caption);
+
                     // enter bookmark caption edit mode
                     bookmarkWindow.Activate();
                     _applicationObject.ExecuteCommand("OtherContextMenus.BookmarkWindow.Rename");
 
-                    SendKeys.Send(caption);     // hate to use SendKeys.Send().. but BookmarkWindow.Rename does not accept parameters
-                    SendKeys.Send("{ENTER}");
+//return;   // with shortcut : all fine until here
+
+
+                    //bookmarkWindow.Activate();
+                    //System.Threading.Thread.Sleep(1000);
+                    //bookmarkWindow.Activate();
+                    //System.Threading.Thread.Sleep(1000);
+                    //_applicationObject.ExecuteCommand("View.BookmarkWindow");
+                    //System.Threading.Thread.Sleep(1000);
+
+                    //SendKeys.SendWait(caption);     // hate to use SendKeys.Send().. but BookmarkWindow.Rename does not accept parameters
+                    
+                    //if(false)
+                    foreach (char c in caption)
+                    {
+                        //_applicationObject.ExecuteCommand("View.BookmarkWindow");
+                        //bookmarkWindow.Activate();
+                        //System.Threading.Thread.Sleep(10);
+                        //Debug.WriteLine(c.ToString());
+                        SendKeys.SendWait(c.ToString());
+                    }
+
+
+
+//return;     // with shortcut : not fine here
+
+                    SendKeys.SendWait("{ENTER}");
 
                     _applicationObject.ExecuteCommand("File.SaveAll");
 
                     if (keepEditMode)
                     {
                         bookmarkWindow.Activate();
-                        SendKeys.Send("{F2}");  // hate to use SendKeys.Send().. but BookmarkWindow.Rename does not work in that case
+                        SendKeys.SendWait("{F2}");  // hate to use SendKeys.Send().. but BookmarkWindow.Rename does not work in that case
                     }
                     else
                     {
                         //currentWindow.Activate();
-                        SendKeys.Send("^{TAB}");    // hate to use SendKeys.Send().. but currentWindow.Activate() breaks bookmarks name edition
-                        // TODO test SendKeys.SendWait()
+                        SendKeys.SendWait("^{TAB}");    // hate to use SendKeys.Send().. but currentWindow.Activate() breaks bookmarks name edition
+                        // TODO test SendInput()
                     }
                 }               
             }
