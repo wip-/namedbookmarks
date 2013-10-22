@@ -1,0 +1,10 @@
+1 one
+void MyClass::MyFunction(int i) // comment
+{
+    // init variable
+    // etc...
+
+}
+eight
+nine
+ten
