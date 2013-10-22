@@ -114,10 +114,13 @@ namespace Wil.NamedBookmarks
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
-            DTE2 _applicationObject = (DTE2)GetService(typeof(DTE));
+            DTE2 dte2 = (DTE2)GetService(typeof(DTE));
+            //DTE  dte  = (DTE )GetService(typeof(DTE));
 
-            TextSelection selection = _applicationObject.ActiveDocument.Selection as TextSelection;
-            Window currentWindow = _applicationObject.ActiveWindow;
+
+
+            TextSelection selection = dte2.ActiveDocument.Selection as TextSelection;
+            Window currentWindow = dte2.ActiveWindow;
 
             if (null != selection)
             {
@@ -131,7 +134,7 @@ namespace Wil.NamedBookmarks
                     // get current line content
                     selection.StartOfLine(vsStartOfLineOptions.vsStartOfLineOptionsFirstText);
                     selection.EndOfLine(true);
-                    selection = _applicationObject.ActiveDocument.Selection as TextSelection;
+                    selection = dte2.ActiveDocument.Selection as TextSelection;
                     caption = selection.Text;
                     keepEditMode = true;
                 }
@@ -139,9 +142,9 @@ namespace Wil.NamedBookmarks
 
 
                 // Get window
-                _applicationObject.ExecuteCommand("View.BookmarkWindow");
+                dte2.ExecuteCommand("View.BookmarkWindow");
                 Window bookmarkWindow = null;
-                foreach(Window window in _applicationObject.Windows)
+                foreach(Window window in dte2.Windows)
                 {
                     if(window.Caption == "Bookmarks")
                     {
@@ -153,18 +156,18 @@ namespace Wil.NamedBookmarks
 
                 // Set bookmark
                 selection.SetBookmark();
-                //_applicationObject.ExecuteCommand("Format.InsertBookmark");
+                //dte2.ExecuteCommand("Format.InsertBookmark");
 
 
                 // Name bookmark
                 if (caption != "")
                 {
-                    //_applicationObject.ExecuteCommand("Edit.ClearOutputWindow");
+                    //dte2.ExecuteCommand("Edit.ClearOutputWindow");
                     //Debug.WriteLine(caption);
 
                     // enter bookmark caption edit mode
                     bookmarkWindow.Activate();
-                    _applicationObject.ExecuteCommand("OtherContextMenus.BookmarkWindow.Rename");
+                    dte2.ExecuteCommand("OtherContextMenus.BookmarkWindow.Rename");
 
 //return;   // with shortcut : all fine until here
 
@@ -173,15 +176,18 @@ namespace Wil.NamedBookmarks
                     //System.Threading.Thread.Sleep(1000);
                     //bookmarkWindow.Activate();
                     //System.Threading.Thread.Sleep(1000);
-                    //_applicationObject.ExecuteCommand("View.BookmarkWindow");
+                    //dte2.ExecuteCommand("View.BookmarkWindow");
                     //System.Threading.Thread.Sleep(1000);
 
                     //SendKeys.SendWait(caption);     // hate to use SendKeys.Send().. but BookmarkWindow.Rename does not accept parameters
+
                     
+                    //System.Diagnostics.Process.GetCurrentProcess().WaitForInputIdle();
+
                     //if(false)
                     foreach (char c in caption)
                     {
-                        //_applicationObject.ExecuteCommand("View.BookmarkWindow");
+                        //dte2.ExecuteCommand("View.BookmarkWindow");
                         //bookmarkWindow.Activate();
                         //System.Threading.Thread.Sleep(10);
                         //Debug.WriteLine(c.ToString());
@@ -194,7 +200,7 @@ namespace Wil.NamedBookmarks
 
                     SendKeys.SendWait("{ENTER}");
 
-                    _applicationObject.ExecuteCommand("File.SaveAll");
+                    dte2.ExecuteCommand("File.SaveAll");
 
                     if (keepEditMode)
                     {

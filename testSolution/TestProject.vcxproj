@@ -10,6 +10,9 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="testFile.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5D53EE87-B564-402F-9F5E-F053B266AA06}</ProjectGuid>
     <RootNamespace>TestProject</RootNamespace>
