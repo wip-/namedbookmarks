@@ -35,7 +35,7 @@ namespace Wil.NamedBookmarks
     // This attribute is needed to let the shell know that this package exposes some menus.
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(GuidList.guidNamedBookmarksPkgString)]
-    public sealed class NamedBookmarksPackage : Package
+    public sealed class NamedBookmarksPackage : Package //, IVsPersistSolutionOpts
     {
         /// <summary>
         /// Default constructor of the package.
@@ -114,6 +114,10 @@ namespace Wil.NamedBookmarks
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
+
+
+#if true   // the add-in way
+
             DTE2 dte2 = (DTE2)GetService(typeof(DTE));
             //DTE  dte  = (DTE )GetService(typeof(DTE));
 
@@ -219,7 +223,49 @@ namespace Wil.NamedBookmarks
             // other ideas : 
             // http://stackoverflow.com/questions/54052/tool-to-view-the-contents-of-the-solution-user-options-file-suo
             // http://msdn.microsoft.com/en-us/library/vstudio/163ba701.aspx
+
+#else
+            // "Full VSPackage" way
+
+
+
+
+#endif
+
         }
+
+
+        //#region IVsPersistSolutionOpts Members
+
+        //int IVsPersistSolutionOpts.LoadUserOptions(IVsSolutionPersistence pPersistence, uint grfLoadOpts)
+        //{
+        //    return VSConstants.S_OK;
+        //}
+
+        //int IVsPersistSolutionOpts.ReadUserOptions(IStream pOptionsStream, string pszKey)
+        //{
+        //    return VSConstants.S_OK;
+        //}
+
+        //int IVsPersistSolutionOpts.SaveUserOptions(IVsSolutionPersistence pPersistence)
+        //{
+        //    return VSConstants.S_OK;
+        //}
+
+        //int IVsPersistSolutionOpts.WriteUserOptions(IStream pOptionsStream, string pszKey)
+        //{
+        //    return VSConstants.S_OK;
+        //}
+
+        //int ReadUserOptions(IStream pOptionsStream, string pszKey)
+        //{
+        //    int result = this.ReadUserOptions(pOptionsStream, pszKey);
+        //    return result;
+        //    //return VSConstants.S_OK;
+        //}
+
+        //#endregion
+
 
     }
 }
