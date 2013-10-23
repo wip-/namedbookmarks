@@ -5,8 +5,7 @@ Custom Visual Studio 2012 command to create automatically named bookmarks.
 Use it from the Visual Studio 2012 Tools menu.  
 Alternately, you can set a keyboard shortcut to call it (**not yet working when called from shortcut**).
 
-
-
+Use at your own risk!
 
 ------------------------------------------
 
