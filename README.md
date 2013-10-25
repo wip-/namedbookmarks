@@ -26,7 +26,7 @@ Notes:
 * I had to use a lot of **SendKeys.Send()** commands, as a result the add-in might have some strange behavior if not used in the Text Editor
 * Installer available on http://visualstudiogallery.msdn.microsoft.com/d082caf9-6df1-4dc7-b239-bf7f01981361
 * Code available on https://github.com/wip-/namedbookmarks  
-* To run in debug mode: in **Properties/Debug**, set Visual Studio 2012 (11.0) devenv.exe path in the **Start external program** box, and **/rootsuffix Exp** in the **Command line arguments** box.
+* [From source code] To run in debug mode: in **Properties/Debug**, set Visual Studio 2012 (11.0) devenv.exe path in the **Start external program** box, and **/rootsuffix Exp** in the **Command line arguments** box.
 
 [1]: http://msdn.microsoft.com/en-us/library/7f33da8d(v=vs.110).aspx 
 
